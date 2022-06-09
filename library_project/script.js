@@ -4,26 +4,34 @@ class Book{
         this.book=book;this.author=author;this.category=category
     }
 }
+const tbody=document.getElementById('tbody');
+tbody.innerHTML=localStorage.getItem('book-data');
+a=0;
+bookdata=``
 function deletes(d){
    const rowindex=(d.parentNode.parentNode.rowIndex);
    const tabledel= document.getElementsByTagName('tr')[rowindex];
    const table_body=document.getElementsByTagName('tbody')[0];
    table_body.removeChild(tabledel);
+   localStorage.setItem('book-data',tbody.innerHTML);
 }
+
 class Displaybook{
     constructor(book){
         this.book=book;
     }
     addbook(){
-        const tbody=document.getElementById('tbody');
-        const data=document.createElement('tr');
-        data.innerHTML = ` <th scope="row">1</th>
+        a++;
+        
+         bookdata += `<tr> <th scope="row">${a}</th>
                        <td>${this.book.book}</td>
         <td>${this.book.author}</td>
         <td>${this.book.category}</td>
-        <td> <button class='btn btn-danger' onclick={deletes(this)}> Delete</button></td> `
+        <td> <button class='btn btn-danger' onclick={deletes(this)}> Delete</button></td></tr>`
+tbody.innerHTML=bookdata;
+localStorage.setItem('book-data',bookdata);
 
-        tbody.append(data)
+//         tbody.append(data)
     }
 }
 
